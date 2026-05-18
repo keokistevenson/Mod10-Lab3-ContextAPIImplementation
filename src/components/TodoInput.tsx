@@ -1,4 +1,4 @@
-function TodoInput (){
+function TodoInput() {
     return <section>
         <input type="text" /> <button>Add Todo</button>
     </section>
