@@ -1,7 +1,8 @@
+import { useState } from "react";
 import TodoItem from "./TodoItem";
 import type { Todo } from "../types/Todo";
 
-const todos: Todo[] = [
+const initialTodos: Todo[] = [
     {
         id: 1,
         text: "Wash dishes",
@@ -19,16 +20,20 @@ const todos: Todo[] = [
     },
 ];
 
-// Derived values don't need State
-const itemsLeft = todos.filter(
-  todo => !todo.completed
-).length;
-
-const itemsCompleted = todos.filter(
-  todo => todo.completed
-).length;
 
 function TodoList() {
+    const [todos, setTodos] = useState(initialTodos);
+
+    // Derived values don't need State
+    // They are recalculated every time TodoList renders.
+    const itemsLeft = todos.filter(
+        todo => !todo.completed
+    ).length;
+
+    const itemsCompleted = todos.filter(
+        todo => todo.completed
+    ).length;
+
     return <section>
         <ul>
             {todos.map((todo) => (
