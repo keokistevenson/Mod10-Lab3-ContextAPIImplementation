@@ -19,6 +19,14 @@ const todos: Todo[] = [
     },
 ];
 
+// Derived values don't need State
+const itemsLeft = todos.filter(
+  todo => !todo.completed
+).length;
+
+const itemsCompleted = todos.filter(
+  todo => todo.completed
+).length;
 
 function TodoList() {
     return <section>
@@ -27,7 +35,7 @@ function TodoList() {
                 <TodoItem key={todo.id} todo={todo} />
             ))}
         </ul>
-        <footer><div><span></span> items left</div> <button>Clear Completed</button></footer>
+        <footer><div><span>{itemsLeft}</span> items left</div> <button>Clear Completed ({itemsCompleted})</button></footer>
     </section>
 }
 
