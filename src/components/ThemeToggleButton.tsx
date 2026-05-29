@@ -1,9 +1,5 @@
 function ThemeToggleButton() {
-    return <section>
-        <h1>Todo App (Context API)</h1> <button>Switch to Dark</button>
-
-        <hr />
-    </section>
+    return <button>Switch to Dark</button>;
 }
 
 export default ThemeToggleButton;
