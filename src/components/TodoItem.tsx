@@ -7,7 +7,8 @@ interface TodoItemProps {
 function TodoItem({ todo }: TodoItemProps) {
     return <li>
         <input type="checkbox" checked={todo.completed} readOnly />
-         <span>{todo.text}</span>
+         <span
+          style={{textDecoration: todo.completed ? "line-through" : "none"}}>{todo.text}</span>
         <button>Edit</button>
         <button>Delete</button>
     </li>
