@@ -9,8 +9,8 @@ interface TodoListProps {
 function TodoList({ todos, setTodos }: TodoListProps) {
     // Derived values don't need State
     // They are recalculated every time TodoList renders.
-    const itemsLeft = todos.filter((todo) => !todo.completed).length;
-    const itemsCompleted = todos.filter((todo) => todo.completed).length;
+    const itemsLeft = todos.filter((todo) => !todo.completed);
+    const itemsCompleted = todos.filter((todo) => todo.completed);
 
     function deleteTodo(id: number) {
         setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
@@ -24,6 +24,12 @@ function TodoList({ todos, setTodos }: TodoListProps) {
                     : todo
             )
         );
+    }
+
+    function clearCompleted() {
+
+        // Code below is better than setTodos(itemsLeft); because the code below gets the latest state from React.
+        setTodos((prevTodos) => prevTodos.filter((todo) => !todo.completed));
     }
 
     return (
@@ -41,10 +47,10 @@ function TodoList({ todos, setTodos }: TodoListProps) {
 
             <footer>
                 <div>
-                    <span>{itemsLeft}</span> items left
+                    <span>{itemsLeft.length}</span> items left
                 </div>
 
-                <button>Clear Completed ({itemsCompleted})</button>
+                <button onClick={clearCompleted}>Clear Completed ({itemsCompleted.length})</button>
             </footer>
         </section>
     );
