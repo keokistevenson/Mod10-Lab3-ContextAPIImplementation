@@ -1,47 +1,53 @@
-import { useState } from "react";
 import TodoItem from "./TodoItem";
 import type { Todo } from "../types/Todo";
 
-const initialTodos: Todo[] = [
-    {
-        id: 1,
-        text: "Wash dishes",
-        completed: false,
-    },
-    {
-        id: 2,
-        text: "Get up in the morning",
-        completed: false,
-    },
-    {
-        id: 3,
-        text: "Practice React",
-        completed: true,
-    },
-];
+interface TodoListProps {
+    todos: Todo[];
+    setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+}
 
-
-function TodoList() {
-    const [todos, setTodos] = useState(initialTodos);
-
+function TodoList({ todos, setTodos }: TodoListProps) {
     // Derived values don't need State
     // They are recalculated every time TodoList renders.
-    const itemsLeft = todos.filter(
-        todo => !todo.completed
-    ).length;
+    const itemsLeft = todos.filter((todo) => !todo.completed).length;
+    const itemsCompleted = todos.filter((todo) => todo.completed).length;
 
-    const itemsCompleted = todos.filter(
-        todo => todo.completed
-    ).length;
+    function deleteTodo(id: number) {
+        setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+    }
 
-    return <section>
-        <ul>
-            {todos.map((todo) => (
-                <TodoItem key={todo.id} todo={todo} />
-            ))}
-        </ul>
-        <footer><div><span>{itemsLeft}</span> items left</div> <button>Clear Completed ({itemsCompleted})</button></footer>
-    </section>
+    function toggleTodo(id: number) {
+        setTodos((prevTodos) =>
+            prevTodos.map((todo) =>
+                todo.id === id
+                    ? { ...todo, completed: !todo.completed }
+                    : todo
+            )
+        );
+    }
+
+    return (
+        <section>
+            <ul>
+                {todos.map((todo) => (
+                    <TodoItem
+                        key={todo.id}
+                        todo={todo}
+                        onDeleteTodo={deleteTodo}
+                        onToggleTodo={toggleTodo}
+                    />
+                ))}
+            </ul>
+
+            <footer>
+                <div>
+                    <span>{itemsLeft}</span> items left
+                </div>
+
+                <button>Clear Completed ({itemsCompleted})</button>
+            </footer>
+        </section>
+    );
 }
 
 export default TodoList;
