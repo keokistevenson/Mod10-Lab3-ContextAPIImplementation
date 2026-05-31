@@ -26,6 +26,14 @@ function TodoList({ todos, setTodos }: TodoListProps) {
         );
     }
 
+    function editTodo(id: number, newText: string) {
+        setTodos((prevTodos) =>
+            prevTodos.map((todo) =>
+                todo.id === id ? { ...todo, text: newText } : todo
+            )
+        );
+    }
+
     function clearCompleted() {
 
         // Code below is better than setTodos(itemsLeft); because the code below gets the latest state from React.
@@ -41,6 +49,7 @@ function TodoList({ todos, setTodos }: TodoListProps) {
                         todo={todo}
                         onDeleteTodo={deleteTodo}
                         onToggleTodo={toggleTodo}
+                        onEditTodo={editTodo}
                     />
                 ))}
             </ul>
