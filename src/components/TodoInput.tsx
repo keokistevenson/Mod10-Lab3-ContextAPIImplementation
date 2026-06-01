@@ -1,11 +1,13 @@
 import { useState } from "react";
+import { useTodos } from "../context/TodoContext";
 
 interface TodoInputProps {
   onAddTodo: (text: string) => void;
 }
 
-function TodoInput({ onAddTodo }: TodoInputProps) {
+function TodoInput() {
   const [todoText, setTodoText] = useState("");
+  const { addTodo } = useTodos();
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -14,7 +16,7 @@ function TodoInput({ onAddTodo }: TodoInputProps) {
 
     if (!trimmedText) return;
 
-    onAddTodo(trimmedText);
+    addTodo(trimmedText);
     setTodoText("");
   }
 
