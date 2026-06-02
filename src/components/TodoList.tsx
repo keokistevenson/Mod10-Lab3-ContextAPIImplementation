@@ -1,9 +1,17 @@
 import TodoItem from "./TodoItem";
 import { useTodos } from "../context/TodoContext";
+import { useFilter } from "../context/FilterContext";
 
 
 function TodoList() {
-const { todos, clearCompleted } = useTodos();
+    const { todos, clearCompleted } = useTodos();
+    const { filter } = useFilter();
+
+    const visibleTodos = todos.filter((todo) => {
+        if (filter === "active") return !todo.completed;
+        if (filter === "completed") return todo.completed;
+        return true;
+    });
 
     // Derived values don't need State
     // They are recalculated every time TodoList renders.
@@ -13,13 +21,10 @@ const { todos, clearCompleted } = useTodos();
     return (
         <section>
             <ul>
-                {todos.map((todo) => (
+                {visibleTodos.map((todo) => (
                     <TodoItem
                         key={todo.id}
                         todo={todo}
-                        // onDeleteTodo={deleteTodo}
-                        // onToggleTodo={toggleTodo}
-                        // onEditTodo={editTodo}
                     />
                 ))}
             </ul>
