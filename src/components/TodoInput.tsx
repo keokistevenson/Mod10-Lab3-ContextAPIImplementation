@@ -1,10 +1,6 @@
 import { useState } from "react";
 import { useTodos } from "../context/TodoContext";
 
-interface TodoInputProps {
-  onAddTodo: (text: string) => void;
-}
-
 function TodoInput() {
   const [todoText, setTodoText] = useState("");
   const { addTodo } = useTodos();
