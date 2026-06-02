@@ -4,12 +4,15 @@ import "./index.css";
 import App from "./App";
 import { TodoProvider } from "./context/TodoContext";
 import { FilterProvider } from "./context/FilterContext";
+import { ThemeProvider } from "./context/ThemeContext";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <TodoProvider>
       <FilterProvider>
-        <App />
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
       </FilterProvider>
     </TodoProvider>
   </StrictMode>

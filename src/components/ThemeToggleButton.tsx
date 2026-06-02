@@ -1,5 +1,13 @@
+import { useTheme } from "../context/ThemeContext";
+
 function ThemeToggleButton() {
-    return <button>Switch to Dark</button>;
+  const { theme, toggleTheme } = useTheme();
+
+  return (
+    <button onClick={toggleTheme}>
+      Switch to {theme === "light" ? "Dark" : "Light"}
+    </button>
+  );
 }
 
 export default ThemeToggleButton;
